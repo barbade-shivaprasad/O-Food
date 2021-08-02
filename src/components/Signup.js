@@ -30,7 +30,7 @@ export const Signup = (props) => {
     };
 
     axios
-      .post("http://localhost:5000/signup", request)
+      .post("https://backendfoo.herokuapp.com/signup", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
@@ -53,7 +53,7 @@ export const Signup = (props) => {
     };
 
     axios
-      .post("http://localhost:5000/signup", request)
+      .post("https://backendfoo.herokuapp.com/signup", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
