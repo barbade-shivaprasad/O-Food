@@ -16,10 +16,8 @@ export const Signup = (props) => {
 
   const history = useHistory();
 
-  const navigate = (request) => {
-
-    props.user(request);
-    history.push("/user");
+  const navigate = () => {
+    history.push("/success");
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -33,14 +31,14 @@ export const Signup = (props) => {
     };
 
     axios
-      .post("http://192.168.0.4:5000/signup", request)
+      .post("http://192.168.0.4:5000/edit-profile", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
-        console.log("shiva");
+
         if (available !== "") {
           document.getElementById("email").focus();
-        } else navigate(request);
+        } else navigate();
       })
       .catch((err) => {
         console.log("err", err);
@@ -56,7 +54,7 @@ export const Signup = (props) => {
     };
 
     axios
-      .post("http://192.168.0.4:5000/signup", request)
+      .post("http://192.168.0.4:5000/edit-profile", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
@@ -97,7 +95,7 @@ export const Signup = (props) => {
           required
         />
         <button className="btn-signup" type="submit">
-          Sign UP
+          Submit
         </button>
       </form>
     </div>

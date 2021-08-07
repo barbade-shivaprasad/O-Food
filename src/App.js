@@ -4,20 +4,26 @@ import { Signup } from "./components/Signup";
 import Login from "./components/Login";
 import { Intro } from "./components/Intro";
 import { User } from "./components/User";
-import { SignSuccess } from "./components/SignSuccess";
+import Admin from "./components/Admin";
+import { Restaurents } from "./components/Restaurents";
 // const fs = require('fs');
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
-  const [client, setClient] = useState({ name: "", email: "", phone: "" });
+  const [client, setClient] = useState({ profile: "", selectFoodItem: [] });
 
   const user = (details) => {
     setClient({
       ...client,
-      name: details.name,
-      email: details.email,
-      phone: details.phone,
+      profile: details,
+    });
+  };
+
+  const foodItem = (items) => {
+    setClient({
+      ...client,
+      profile: items,
     });
   };
   // let m = fs.readFileSync('details.json','utf-8');
@@ -30,17 +36,21 @@ function App() {
             <Intro />
           </Route>
           <Route exact path="/signup">
-            <Signup />
+            <Signup user={user} />
           </Route>
           <Route path="/login">
             <Login user={user} />
           </Route>
+          <Route path="/admin">
+            <Admin user={user} />
+          </Route>
           <Route path="/user">
             <User client={client} />
           </Route>
-          <Route path="/success">
-            <SignSuccess />
-          </Route>
+
+          {/* <Route exact path="/food">
+                    <Restaurents />
+                </Route> */}
         </Switch>
       </div>
     </Router>

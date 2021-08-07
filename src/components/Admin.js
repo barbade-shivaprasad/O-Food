@@ -3,15 +3,14 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./login.css";
 
-const Login = ({ user }) => {
+const Admin = ({ user }) => {
   let available;
 
   const history = useHistory();
 
-  // const navigate = () => {
-    // history.push("/user");
-    
-  // };
+  const navigate = () => {
+    history.push("/user");
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -22,15 +21,14 @@ const Login = ({ user }) => {
     };
 
     axios
-      .post("http://192.168.0.4:5000/login", request)
+      .post("http://192.168.0.4:5000/admin", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
 
         if (available === "") {
           user(res.data.info);
-          history.push("/user");
-          
+          navigate();
         }
       })
       .catch((err) => {
@@ -40,9 +38,7 @@ const Login = ({ user }) => {
 
   const change = (e) => {
     document.getElementById("a").innerHTML = "";
-    
   };
-  
   return (
     <div className="container-login">
     <form onSubmit={submitHandler} className="form-login">
@@ -64,11 +60,10 @@ const Login = ({ user }) => {
       <button className="btn-login" type="submit">
         Login
       </button>
-     
     </form>
       
     </div>
   );
 };
 
-export default Login;
+export default Admin;
