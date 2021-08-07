@@ -21,7 +21,7 @@ const Admin = ({ user }) => {
     };
 
     axios
-      .post("http://192.168.0.4:5000/admin", request)
+      .post("https://backendfoo.herokuapp.com/admin", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;

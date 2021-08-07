@@ -106,7 +106,7 @@ export const User = ({ client }) => {
   const main = () => {
     let request = {};
     axios
-      .post("http://192.168.0.4:5000/main", request)
+      .post("https://backendfoo.herokuapp.com/main", request)
       .then((res) => {
         let foods = res.data.message;
         localStorage.setItem("food", JSON.stringify(foods));
