@@ -11,6 +11,7 @@ import ham1 from "../resources/ham.png";
 import cross from "../resources/cross.png";
 import box from "../resources/box.png";
 import back from "../resources/back.png";
+import { EditProfile } from "./EditProfile";
 
 export const User = ({ client }) => {
   let totalCost = 0;
@@ -106,7 +107,7 @@ export const User = ({ client }) => {
   const main = () => {
     let request = {};
     axios
-      .post("https://backendfoo.herokuapp.com/main", request)
+      .post("https://backendfoo.herokuapp.com0/main", request)
       .then((res) => {
         let foods = res.data.message;
         localStorage.setItem("food", JSON.stringify(foods));
@@ -128,7 +129,26 @@ export const User = ({ client }) => {
   const fooddetails = (details, foodName) => {
     setfooddata({ ...fooddata, fd: details, fName: foodName });
   };
-
+  const profileClose = (e) => {
+    let m = profiles.prof;
+    if (m !== "1") m = "1";
+    else m = "0";
+    setprofiles({
+      ...profiles,
+      prof: m,
+      hist: "",
+      main: "0",
+      res: "",
+      bag: "0",
+    });
+    if (m !== "1") {
+      document.querySelector(".profile").style.height = "0rem";
+      document.querySelector(".profile").style.opacity = "0";
+    } else {
+      document.querySelector(".profile").style.height = "max-content";
+      document.querySelector(".profile").style.opacity = "1";
+    }
+  };
   return (
     <div className="container-user">
       <Router>
@@ -198,28 +218,7 @@ export const User = ({ client }) => {
                   <div
                     id="user-profile"
                     className="ham-ele"
-                    onClick={(e) => {
-                      let m = profiles.prof;
-                      if (m !== "1") m = "1";
-                      else m = "0";
-                      setprofiles({
-                        ...profiles,
-                        prof: m,
-                        hist: "",
-                        main: "0",
-                        res: "",
-                        bag: "0",
-                      });
-                      if (m !== "1") {
-                        document.querySelector(".profile").style.height =
-                          "0rem";
-                        document.querySelector(".profile").style.opacity = "0";
-                      } else {
-                        document.querySelector(".profile").style.height =
-                          "max-content";
-                        document.querySelector(".profile").style.opacity = "1";
-                      }
-                    }}
+                    onClick={profileClose}
                   >
                     profile
                   </div>
@@ -230,6 +229,8 @@ export const User = ({ client }) => {
                       ? mydata.profile
                       : console.log(client.profile)
                   }
+                  ham={ham}
+                  profileClose={profileClose}
                 />
                 <li>
                   <div id="user-history" className="ham-ele">
@@ -261,6 +262,13 @@ export const User = ({ client }) => {
               <div>
                 <Restaurents data={fooddata} addBag={addBag} />
               </div>
+            </Route>
+            <Route exact path="/user/edit">
+              <EditProfile client={
+                    mydata != null
+                      ? mydata.profile
+                      : console.log(client.profile)
+                  } />
             </Route>
           </Switch>
         </div>
