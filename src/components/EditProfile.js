@@ -41,7 +41,7 @@ export const EditProfile = ( {client} ) => {
           delete request['change'];
           delete request['password'];
           delete request['oldPassword'];
-          profile1['profile']=request;
+          profile1.profile=request;
           localStorage.setItem("data",JSON.stringify(profile1));
           history.push("/user");
           window.location.reload();

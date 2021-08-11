@@ -23,25 +23,49 @@ export const User = ({ client }) => {
     bag: "0",
   });
   const [fooddata, setfooddata] = useState({ fd: [], fName: "" });
-  const [addToBag, setaddToBag] = useState({ bag: [] });
-
+  
+  //to get bag data
   let BData = JSON.parse(localStorage.getItem("bData"));
-  if (localStorage.getItem("bData") !== null) {
+  
+  const [addToBag, setaddToBag] = useState({ bag: BData!==null?BData.bag:[] });
+  //calculate total amount
+  if (localStorage.getItem("bData") !== null && localStorage.getItem("bData") !== "{}") {
     BData.bag.forEach((element) => {
       totalCost = totalCost + element.netamount;
     });
   }
+
+  //Add to bag
   const addBag = (bData) => {
+
     let temp = addToBag.bag;
     bData["key"] = uuid();
     temp.unshift(bData);
+    console.log(temp);
+
+
+    let request = {
+      id:mydata.profile.id,
+      bag:temp
+    };
+    axios
+    .post("https://backendfoo.herokuapp.com/bag", request)
+    .then((res) => {
+
+    }).catch((err) => {
+      console.log(err);
+    });
+    
+    
     setaddToBag({ ...addToBag, bag: temp });
+
     if (BData !== null) {
       BData.bag.unshift(bData);
       localStorage.setItem("bData", JSON.stringify(BData));
     } else localStorage.setItem("bData", JSON.stringify(addToBag));
   };
 
+  //To Delete bag item
   const deleteBagItem = (key) => {
     let t = [];
     console.log(key);
@@ -50,28 +74,34 @@ export const User = ({ client }) => {
         t.push(element);
       }
     });
-    // console.log(t);
+
+    let request = {
+      id:mydata.profile.id,
+      bag:t
+    };
+    axios
+    .post("https://backendfoo.herokuapp.com/bag", request)
+    .then((res) => {
+
+    }).catch((err) => {
+      console.log(err);
+    });
+
     setaddToBag({ ...addToBag, bag: t });
     let k = { bag: t };
     localStorage.setItem("bData", JSON.stringify(k));
   };
+
+
   let food = {};
+
+  //To logout
   const logout = () => {
     localStorage.clear();
     history.push("/");
     window.location.reload();
   };
-  const history = useHistory();
-  let mydata = localStorage.getItem("data");
-  if (mydata === null && client.profile === "") {
-    history.push("/login");
-  } else {
-    if (client.profile !== "") {
-      localStorage.clear();
-      localStorage.setItem("data", JSON.stringify(client));
-    }
-    mydata = JSON.parse(localStorage.getItem("data"));
-  }
+
   const ham = (e) => {
     let m = profiles.main;
     if (m !== "1") m = "1";
@@ -84,12 +114,12 @@ export const User = ({ client }) => {
       res: "",
       bag: "0",
     });
-
+    
     //for design
     if (m !== "1") {
       document.querySelector(".ham").style.width = "70vw";
       document.querySelector(".container-user").style.backgroundColor =
-        "rgb(124, 119, 119)";
+      "rgb(124, 119, 119)";
       document.querySelector(".panel").style.opacity = "0";
       document.querySelector(".panel").style.display = "none";
       document.querySelector(".ham-btn").src = cross;
@@ -103,22 +133,50 @@ export const User = ({ client }) => {
       }, 500);
     }
   };
-
+  
   const main = () => {
-    let request = {};
+    let request = {
+      id:mydata.profile.id
+    };
     axios
-      .post("https://backendfoo.herokuapp.com/main", request)
-      .then((res) => {
-        let foods = res.data.message;
-        localStorage.setItem("food", JSON.stringify(foods));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .post("https://backendfoo.herokuapp.com/main", request)
+    .then((res) => {
+      let foods = res.data.message;
+      let temp = {};
+      temp.profile=res.data.info;
+      localStorage.setItem("food", JSON.stringify(foods));
+      localStorage.setItem("data", JSON.stringify(temp));
+      console.log();
+      if(res.data.bag!==undefined){
+        
+        temp = {};
+        temp.bag=res.data.bag;
+        localStorage.setItem("bData", JSON.stringify(temp));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   };
-  main();
+
+  
+  //Basic fetching data
+  const history = useHistory();
+
+  let mydata = localStorage.getItem("data");
+  if (mydata === null && client.profile === "") {
+    history.push("/login");
+  } else {
+    if (client.profile !== "") {
+      localStorage.clear();
+      localStorage.setItem("data", JSON.stringify(client));
+    }
+    mydata = JSON.parse(localStorage.getItem("data"));
+    main();
+  }
   if (localStorage.getItem("food") !== null) {
     food = JSON.parse(localStorage.getItem("food"));
+    
   } else {
     console.log("Loading...");
     setTimeout(() => {
