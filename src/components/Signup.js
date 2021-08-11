@@ -15,6 +15,8 @@ export const Signup = (props) => {
   let available;
 
   const history = useHistory();
+  if(localStorage.getItem("data")!==null)
+  history.push("/user")
 
   const navigate = (request) => {
 

@@ -1,8 +1,12 @@
 import "./intro.css";
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link,useHistory } from "react-router-dom";
 
 export const Intro = () => {
+  
+  let history = useHistory();
+  if(localStorage.getItem("data")!==null)
+  history.push("/user")
   return (
     <>
       <div className="container">
