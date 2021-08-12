@@ -22,7 +22,7 @@ const Login = ({ user }) => {
     };
 
     axios
-      .post("https://backendfoo.herokuapp.com/login", request)
+      .post("http://3.211.227.96:5000/login", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;

@@ -28,6 +28,7 @@ export const User = ({ client }) => {
   let BData = JSON.parse(localStorage.getItem("bData"));
   
   const [addToBag, setaddToBag] = useState({ bag: BData!==null?BData.bag:[] });
+  console.log(addToBag.bag);
   //calculate total amount
   if (localStorage.getItem("bData") !== null && localStorage.getItem("bData") !== "{}") {
     BData.bag.forEach((element) => {
@@ -49,7 +50,7 @@ export const User = ({ client }) => {
       bag:temp
     };
     axios
-    .post("https://backendfoo.herokuapp.com/bag", request)
+    .post("http://3.211.227.96:5000/bag", request)
     .then((res) => {
 
     }).catch((err) => {
@@ -80,7 +81,7 @@ export const User = ({ client }) => {
       bag:t
     };
     axios
-    .post("https://backendfoo.herokuapp.com/bag", request)
+    .post("http://3.211.227.96:5000/bag", request)
     .then((res) => {
 
     }).catch((err) => {
@@ -139,7 +140,7 @@ export const User = ({ client }) => {
       id:mydata.profile.id
     };
     axios
-    .post("https://backendfoo.herokuapp.com/main", request)
+    .post("http://3.211.227.96:5000/main", request)
     .then((res) => {
       let foods = res.data.message;
       let temp = {};

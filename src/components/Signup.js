@@ -35,7 +35,7 @@ export const Signup = (props) => {
     };
 
     axios
-      .post("https://backendfoo.herokuapp.com/signup", request)
+      .post("http://3.211.227.96:5000/signup", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
@@ -58,7 +58,7 @@ export const Signup = (props) => {
     };
 
     axios
-      .post("https://backendfoo.herokuapp.com/signup", request)
+      .post("http://3.211.227.96:5000/signup", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
