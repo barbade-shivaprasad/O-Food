@@ -4,7 +4,7 @@ import axios from "axios";
 import { Redirect} from "react-router-dom";
 import "./login.css";
 
-const Admin = ({ user }) => {
+const Delivery = () => {
 
   const [authenticated, setauthenticated] = useState("")
   let available;
@@ -14,7 +14,7 @@ console.log(authenticated)
 
  React.useEffect(() => {
    let request={
-     admin:"true"
+     delivery:"true"
    }
   const transport = axios.create({
     withCredentials: true
@@ -31,7 +31,7 @@ console.log(authenticated)
   }, []);
 
   if(authenticated === "authenticated"){
-    return <Redirect to="/admindashboard"/>
+    return <Redirect to="/deliverydashboard"/>
   }
 
   const submitHandler = (e) => {
@@ -40,20 +40,20 @@ console.log(authenticated)
     let request = {
       email: document.getElementById("email").value,
       password: document.getElementById("password").value,
-      admin:"true"
+      delivery:"true"
     };
 
     const transport = axios.create({
       withCredentials: true
     })
      transport
-      .post("https://backendfoo.herokuapp.com/admin" ,request)
+      .post("https://backendfoo.herokuapp.com/login" ,request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
 
         if (available === "") {
-          user(res.data.info);
+          
           setauthenticated("authenticated");
         }
 
@@ -109,4 +109,4 @@ console.log(authenticated)
   );
 };
 
-export default Admin;
+export default Delivery;

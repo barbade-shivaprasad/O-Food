@@ -11,6 +11,7 @@ export const SelectRes = (props) => {
     temp["netamount"] = qty * price;
     props.addBag(temp);
     e.target.querySelector(".addToBox").style.backgroundColor = "green";
+    console.log(e.target.querySelector(".addToBox"));
     e.target.querySelector(".addToBox").innerHTML = "Added";
     e.target.querySelector(".quantity").value = "";
   };
@@ -23,13 +24,11 @@ export const SelectRes = (props) => {
       </div>
       <div className="qtyForm">
         <form onSubmit={clickHandler}>
-          <input
+          <input required
             type="number"
             name=""
             placeholder="QTY"
-            required
             id="quantityid"
-            required
             className="quantity"
             onChange={(e) => {
               qty = e.target.value;

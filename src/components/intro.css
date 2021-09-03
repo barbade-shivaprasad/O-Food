@@ -36,7 +36,7 @@
     bottom: 1rem;
 }
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) { */
     *{
         padding: 0px;
         margin: 0px;
@@ -87,4 +87,4 @@
         width: 20rem;
         
     }
-  }
+  /* } */

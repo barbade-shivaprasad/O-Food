@@ -1,17 +1,35 @@
 import React from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import "./login.css";
 
 const Login = ({ user }) => {
+
+  const [authenticated, setauthenticated] = useState("")
   let available;
 
-  const history = useHistory();
+ 
+console.log(authenticated)
 
-  // const navigate = () => {
-    // history.push("/user");
-    
-  // };
+ React.useEffect(() => {
+  const transport = axios.create({
+    withCredentials: true
+  })
+   transport
+   .post("https://backendfoo.herokuapp.com/authenticate")
+   .then((res)=>{
+     if(res.data === "authenticated")
+     setauthenticated("authenticated")
+   })
+   .catch((err)=>{
+     console.log(err);
+   })
+  }, []);
+
+  if(authenticated === "authenticated"){
+    return <Redirect to="user"/>
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -19,19 +37,33 @@ const Login = ({ user }) => {
     let request = {
       email: document.getElementById("email").value,
       password: document.getElementById("password").value,
+      withCredentials: true
     };
 
-    axios
-      .post("http://3.211.227.96:5000/login", request)
+    const transport = axios.create({
+      withCredentials: true
+    })
+     transport
+      .post("https://backendfoo.herokuapp.com/login" ,request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
 
         if (available === "") {
           user(res.data.info);
-          history.push("/user");
-          
+          setauthenticated("authenticated");
         }
+        if(available!==""){
+          document.getElementById("email").style.border="3px solid red"
+          document.getElementById("a").style.display = "block";
+        }
+        else{
+          
+          document.getElementById("a").style.display = "none";
+          document.getElementById("email").style.border="none"
+
+        }
+
       })
       .catch((err) => {
         console.log("err", err);
@@ -40,7 +72,8 @@ const Login = ({ user }) => {
 
   const change = (e) => {
     document.getElementById("a").innerHTML = "";
-    
+    document.getElementById("a").style.display = "none";
+    document.getElementById("email").style.border="none"
   };
   
   return (
@@ -53,6 +86,7 @@ const Login = ({ user }) => {
         id="email"
         placeholder="Enter your email"
         onChange={change}
+        required
       />
       <input
         type="password"
@@ -60,6 +94,7 @@ const Login = ({ user }) => {
         id="password"
         placeholder="Enter password"
         onChange={change}
+        required
       />
       <button className="btn-login" type="submit">
         Login

@@ -5,29 +5,25 @@ import Login from "./components/Login";
 import { Intro } from "./components/Intro";
 import { User } from "./components/User";
 import Admin from "./components/Admin";
-import { Restaurents } from "./components/Restaurents";
-// const fs = require('fs');
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { AdminDashboard } from "./components/AdminDashboard";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import { useState } from "react";
+import Delivery from "./components/Delivery";
+import { DeliveryDashboard } from "./components/DeliveryDashboard";
 
 function App() {
-  const [client, setClient] = useState({ profile: "", selectFoodItem: [] });
 
+  const [client, setClient] = useState({ profile: "", selectFoodItem: [] });
   const user = (details) => {
     setClient({
       ...client,
       profile: details,
     });
+    
   };
 
-  const foodItem = (items) => {
-    setClient({
-      ...client,
-      profile: items,
-    });
-  };
-  // let m = fs.readFileSync('details.json','utf-8');
-  // console.log(m);
+
+  
   return (
     <Router>
       <div className="App">
@@ -36,7 +32,7 @@ function App() {
             <Intro />
           </Route>
           <Route exact path="/signup">
-            <Signup user={user} />
+            <Signup client={user} />
           </Route>
           <Route path="/login">
             <Login user={user} />
@@ -46,6 +42,15 @@ function App() {
           </Route>
           <Route path="/user">
             <User client={client} />
+          </Route>
+          <Route path="/admindashboard">
+            <AdminDashboard client={client} />
+          </Route>
+          <Route path="/delivery">
+            <Delivery/>
+          </Route>
+          <Route path="/deliverydashboard">
+            <DeliveryDashboard/>
           </Route>
 
           {/* <Route exact path="/food">

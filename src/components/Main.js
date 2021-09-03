@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
+
+import {useHistory} from "react-router-dom";
 
 export const Main = (props) => {
   let data = props.item.item;

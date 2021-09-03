@@ -1,12 +1,30 @@
 import "./intro.css";
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link,useHistory } from "react-router-dom";
+import {useState} from 'react';
+import axios from "axios";
+import {  Link,Redirect} from "react-router-dom";
 
 export const Intro = () => {
   
-  let history = useHistory();
-  if(localStorage.getItem("data")!==null)
-  history.push("/user")
+  const [authenticated, setauthenticated] = useState("")
+  
+  React.useEffect(() => {
+    const transport = axios.create({
+      withCredentials: true
+    })
+     transport
+     .post("https://backendfoo.herokuapp.com/authenticate")
+     .then((res)=>{
+       if(res.data === "authenticated")
+       setauthenticated("authenticated")
+     })
+     .catch((err)=>{
+       console.log(err);
+     })
+    }, []);
+
+    if(authenticated === "authenticated")
+    return <Redirect to="user"/>
   return (
     <>
       <div className="container">

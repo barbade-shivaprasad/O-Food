@@ -59,9 +59,8 @@
   }
 
   .container-user {
-    
+    background-color: white;
     transition-duration: 1s;
-
   }
   .ham {
     height: 100vh;
@@ -93,24 +92,27 @@
     position: absolute;
     left: 1rem;
   }
+  .ham-ele:hover{
+    cursor: pointer;
+    border-bottom:2px solid #ec9f05;
+  }
   .ham-ele {
     padding: 1rem;
     font-size: 1.2rem;
     font-weight: bold;
-    padding-bottom: 0;
   }
   .ham-ele-container {
-    padding: 2rem;
     color: orange;
-    margin-top: 2rem;
+    margin-top: 3.5rem;
+    margin-left: 3rem;
+    padding-top: 1rem;
   }
   .profile {
     height: 0px;
     opacity: 0;
     /* border: 2px solid black; */
     font-size: 1.3rem;
-    margin-top: 1rem;
-    border-top: 2px solid;
+    border-top: 2px solid orange;
     font-weight: bold;
     overflow: hidden;
     transition: all 0.5s;
@@ -296,7 +298,7 @@ h3 {
   padding: 5px;
 }
 .ham-btn {
-  height: 34px;
+  height: 22px;
   width: 34px;
   filter: invert(1);
 }
@@ -312,7 +314,7 @@ h3 {
   text-align: center;
 }
 
-.editForm{
+.editForm , .success-add{
   position: absolute;
   top: 4rem;
   padding: 1em;
@@ -321,9 +323,9 @@ h3 {
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 500px;
 }
-.editForm input{
-  width: 100%;
+.editForm input,textarea{
   width: 100%;
   padding: 0.5em;
   font-size: 0.9rem;
@@ -362,4 +364,169 @@ h3 {
 
 .editForm ::placeholder{
   color: black;
+}
+
+#loading img{
+  height: 100px;
+}
+
+#loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+}
+
+.bill{
+  /* display: flex; */
+  min-width: 800px;
+}
+.client-elements-container{
+  margin: 2vh;
+  margin-bottom: 20px;
+  display: flex;
+  /* border: 2px solid black; */
+  border-radius: 6px;
+  align-items: center;
+  box-shadow: 0px 0px 10px black;
+  border: 2px solid orange;
+}
+.client-elements{
+  margin: 2vh;
+}
+.client-bill{
+  width: 60%;
+  margin: 10px;
+  overflow: hidden;
+}
+.client-profile{
+  text-align: center;
+  width: 35%;
+}
+table{
+  border: none;
+  border-collapse: collapse ;
+  width: 100%;
+  height: 100%;
+}
+td{
+  margin: 2px;
+  text-align: center;
+  border: 1px solid black;
+  padding: 5px;
+  padding-right: 20px;
+}
+.bill h2{
+  text-align: center;
+  color: #ec9f05;
+}
+.tableHeadings{
+  color: white;
+  background-color: #ec9f05;
+}
+.totalBill{
+  font-weight: bold;
+  /* background-color: #dddbd6d0; */
+}
+.selectDate input{
+  display: inline-block;
+}
+.index{
+  width: 50px;
+}
+.sNo{
+  width: 5%;
+    text-align: center;
+    font-weight: bold;
+    color: green;
+}
+.error{
+  color: red;
+}
+.create-deliveryboy{
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 4rem;
+}
+a{
+  text-decoration: none;
+  color: #ec9f05;
+}
+.success-add{
+  display: none;
+}
+.success-add,.success-order img{
+  height: 300px;
+}
+.deliveryboys{
+  margin-top: 2rem;
+}
+
+.setToDelivered,#reject,.set-dlivery,.track{
+  border: none;
+  margin: 10px;
+  margin-left: 0;
+  /* height: 18px; */
+  background-color: #009688;
+  color: white;
+  border-radius: 6px;
+  padding: 5px;
+}
+.setToDelivered:hover,#reject:hover,.set-dlivery:hover,.track{
+  cursor: pointer;
+}
+.set-dlivery{
+  width: 45px;
+}
+#rejectReason{
+  width: 100%;
+}
+#rejectReason::placeholder{
+  color: black;
+}
+.workstatus{
+  position: absolute;
+  top: 3.5rem;
+  display: flex;
+  margin: 18px;
+  min-width: 400px;
+}
+.workstatus label{
+  display: flex;
+    margin-left: 15px;
+    z-index: 10;
+    
+}
+.workstatus input{
+  margin: 7px;
+}
+.customer-bill{
+  min-width: 480px;
+}
+.customer-bill h2{
+  text-align: center;
+  color: #ec9f05;
+}
+.customer-bill-1{
+  width: 100%;
+  margin: 20px;
+  overflow: hidden;
+  /* margin-top: 15px; */
+  margin-left: 10px;
+}
+.success-order{
+  top: 0rem;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 90vh;
+  width: 100%;
+  z-index: -3;
 }

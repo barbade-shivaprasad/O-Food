@@ -10,9 +10,11 @@ export const EditProfile = ( {client} ) => {
     email: client.email,
     password: client.password,
     phone: client.phone,
+    address:client.address,
     change: "",
   });
 
+  console.log(client);
   let available;
   let history=useHistory();
 
@@ -25,12 +27,16 @@ export const EditProfile = ( {client} ) => {
       password: document.getElementById("e-password").value,
       phone: document.getElementById("e-phone").value,
       oldPassword: document.getElementById("e-old-password").value,
+      address:document.getElementById("address").value,
       id:client.id,
       change: "1",
     };
 
-    axios
-      .post("http://3.211.227.96:5000/editprofile", request)
+    const transport = axios.create({
+      withCredentials: true
+    })
+     transport
+      .post("https://backendfoo.herokuapp.com/editprofile", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
@@ -42,10 +48,21 @@ export const EditProfile = ( {client} ) => {
           delete request['password'];
           delete request['oldPassword'];
           profile1.profile=request;
-          localStorage.setItem("data",JSON.stringify(profile1));
           history.push("/user");
           window.location.reload();
         };
+
+
+        if(available!==""){
+          document.getElementById("e-old-password").style.border="3px solid red"
+          document.getElementById("a").style.display = "block";
+        }
+        else{
+          
+          document.getElementById("a").style.display = "none";
+          document.getElementById("e-old-password").style.border="none"
+
+        }
       })
       .catch((err) => {
         console.log("err", err);
@@ -62,10 +79,19 @@ export const EditProfile = ( {client} ) => {
     };
 
     axios
-      .post("http://3.211.227.96:5000/signup", request)
+      .post("https://backendfoo.herokuapp.com/signup", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
+        if(available!==""){
+          document.getElementById("e-email").style.border="3px solid red"
+          document.getElementById("a").style.display = "block";
+        }
+        else{
+          document.getElementById("e-email").style.border="none"
+          document.getElementById("email").style.border="none"
+
+        }
       })
       .catch((err) => {
         console.log("err", err);
@@ -74,7 +100,7 @@ export const EditProfile = ( {client} ) => {
   let val = 0
   const editPassword=(e)=>{
 
-    if(val!=0)
+    if(val!==0)
     {
       val=0;
       document.querySelector(".editPasswords").style.display="none";
@@ -86,6 +112,7 @@ export const EditProfile = ( {client} ) => {
   }
 
   return (
+    <div className="create-deliveryboy">
     <form  className="editForm" onSubmit={submitHandler}>
     <input type="text" name="name" id="e-name" onChange={e=>{setUser({ ...user, name: e.target.value });}} value={user.name} required/>
         <input
@@ -123,10 +150,11 @@ export const EditProfile = ( {client} ) => {
           required
           value={user.phone}
         />
+        <textarea name="address" id="address" cols="30" rows="10" onChange={e=>{setUser({ ...user, address: e.target.value });}} placeholder="Address" value={user.address}></textarea>
         <button className="btn-edit" type="submit" >
           Edit
         </button>
         
-    </form>
+    </form></div>
   )
 }

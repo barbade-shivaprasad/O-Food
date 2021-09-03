@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {Redirect} from "react-router-dom";
+import tick from "../resources/tick.gif"
 import "./signup.css"
 
-export const Signup = ({client}) => {
+export const AddDeliveryBoy = ({client}) => {
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     phone: "",
+    address:"",
     change: "",
   });
-
+const [home, sethome] = useState(0)
   let available;
 
   const [authenticated, setauthenticated] = useState("")
@@ -32,18 +34,18 @@ export const Signup = ({client}) => {
     }, []);
 
     if(authenticated === "authenticated")
-    return <Redirect to="user"/>
+    return <Redirect to="/admin"/>
 
   const submitHandler = (e) => {
     e.preventDefault();
-    e.target.querySelector(".btn-signup").innerHTML = "Loading..."
+    e.target.querySelector(".btn-edit").innerHTML="Processing...";
     console.log(e)
     let request = {
       name: document.getElementById("name").value,
       email: document.getElementById("email").value,
       password: document.getElementById("password").value,
       phone: document.getElementById("phone").value,
-      address:document.getElementById("client-address").value,
+      address:document.getElementById("address").value,
       change: "1",
     };
 
@@ -51,28 +53,21 @@ export const Signup = ({client}) => {
       withCredentials: true
     })
      transport
-      .post("https://backendfoo.herokuapp.com/signup", request)
+      .post("https://backendfoo.herokuapp.com/add-deliveryboy", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
         if (available !== "") {
           document.getElementById("email").focus();
+          document.querySelector(".btn-edit").innerHTML="Create";
         } else {
           
-            let req = {
-              email:request.email,
-              password:request.password
-            }
-            console.log(req);
-             transport
-            .post("https://backendfoo.herokuapp.com/login", req)
-            .then((res) => {
-              client(res.data.info);
-              setauthenticated("authenticated")
-            })
-            .catch((err) => {
-              console.log("err", err);
-            });
+            document.querySelector(".editForm").style.display="none";
+            document.querySelector(".success-add").style.display="block";
+            setTimeout(() => {
+                
+                sethome(1);
+            }, 1000);
         }
       })
       .catch((err) => {
@@ -89,7 +84,7 @@ export const Signup = ({client}) => {
     };
 
     axios
-      .post("https://backendfoo.herokuapp.com/signup", request)
+      .post("https://backendfoo.herokuapp.com/add-deliveryboy", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
@@ -110,9 +105,12 @@ export const Signup = ({client}) => {
       });
   };
 
+  if(home===1)
+  return <Redirect to="/admindashboard"/>
   return (
-    <div className = "container-signup">
-      <form onSubmit={submitHandler} className = "form-signup">
+    <div className="create-deliveryboy">
+      <form onSubmit={submitHandler} className = "editForm">
+          
         <input type="text" name="name" id="name" placeholder="name" required/>
         <input
           type="email"
@@ -140,11 +138,16 @@ export const Signup = ({client}) => {
           placeholder="Enter your phone number"
           required
         />
-        <textarea name="address" id="client-address" cols="30" rows="10" placeholder="Address"></textarea>
-        <button className="btn-signup" type="submit">
-          Sign UP
+        <textarea name="address" id="address" cols="30" rows="10" placeholder="Your Address"></textarea>
+        <button className="btn-edit" type="submit">
+          create
         </button>
+        
       </form>
+      <div className="success-add">
+          <img src={tick} alt="tick" />
+          <div style={{color:"green",fontSize:"33px"}}>Successfully Created!</div>
+      </div>
     </div>
   );
 };
