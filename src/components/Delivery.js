@@ -20,7 +20,7 @@ console.log(authenticated)
     withCredentials: true
   })
    transport
-   .post("https://backendfoo.herokuapp.com/authenticate",request)
+   .post("http://44.195.186.205:5000/authenticate",request)
    .then((res)=>{
      if(res.data === "authenticated")
      setauthenticated("authenticated")
@@ -47,7 +47,7 @@ console.log(authenticated)
       withCredentials: true
     })
      transport
-      .post("https://backendfoo.herokuapp.com/login" ,request)
+      .post("http://44.195.186.205:5000/login" ,request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;

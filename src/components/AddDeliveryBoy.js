@@ -23,7 +23,7 @@ const [home, sethome] = useState(0)
       withCredentials: true
     })
      transport
-     .post("https://backendfoo.herokuapp.com/authenticate")
+     .post("http://44.195.186.205:5000/authenticate")
      .then((res)=>{
        if(res.data === "authenticated")
        setauthenticated("authenticated")
@@ -53,7 +53,7 @@ const [home, sethome] = useState(0)
       withCredentials: true
     })
      transport
-      .post("https://backendfoo.herokuapp.com/add-deliveryboy", request)
+      .post("http://44.195.186.205:5000/add-deliveryboy", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
@@ -84,7 +84,7 @@ const [home, sethome] = useState(0)
     };
 
     axios
-      .post("https://backendfoo.herokuapp.com/add-deliveryboy", request)
+      .post("http://44.195.186.205:5000/add-deliveryboy", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;

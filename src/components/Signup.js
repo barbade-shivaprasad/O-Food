@@ -21,7 +21,7 @@ export const Signup = ({client}) => {
       withCredentials: true
     })
      transport
-     .post("https://backendfoo.herokuapp.com/authenticate")
+     .post("http://44.195.186.205:5000/authenticate")
      .then((res)=>{
        if(res.data === "authenticated")
        setauthenticated("authenticated")
@@ -51,7 +51,7 @@ export const Signup = ({client}) => {
       withCredentials: true
     })
      transport
-      .post("https://backendfoo.herokuapp.com/signup", request)
+      .post("http://44.195.186.205:5000/signup", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
@@ -65,7 +65,7 @@ export const Signup = ({client}) => {
             }
             console.log(req);
              transport
-            .post("https://backendfoo.herokuapp.com/login", req)
+            .post("http://44.195.186.205:5000/login", req)
             .then((res) => {
               client(res.data.info);
               setauthenticated("authenticated")
@@ -89,7 +89,7 @@ export const Signup = ({client}) => {
     };
 
     axios
-      .post("https://backendfoo.herokuapp.com/signup", request)
+      .post("http://44.195.186.205:5000/signup", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;

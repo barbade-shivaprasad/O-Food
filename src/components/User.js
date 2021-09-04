@@ -17,7 +17,7 @@ import socketClient from "socket.io-client";
 import tick from "../resources/tick.gif";
 
 export const User = ({ client }) => {
-  let SERVER = "https://backendfoo.herokuapp.com";
+  let SERVER = "http://44.195.186.205:5000";
   let totalCost = 0;
   const [profiles, setprofiles] = useState({
     prof: "",
@@ -58,7 +58,7 @@ export const User = ({ client }) => {
       withCredentials: true,
     });
     transport
-      .post("https://backendfoo.herokuapp.com/bag", request)
+      .post("http://44.195.186.205:5000/bag", request)
       .then((res) => {
         console.log("Successfully added to Bag");
         temp = res.data.message;
@@ -91,7 +91,7 @@ export const User = ({ client }) => {
       withCredentials: true,
     });
     transport
-      .post("https://backendfoo.herokuapp.com/bag", request)
+      .post("http://44.195.186.205:5000/bag", request)
       .then((res) => {
         console.log("Successfully Deleted Item");
       })
@@ -109,7 +109,7 @@ export const User = ({ client }) => {
       withCredentials: true,
     });
     transport
-      .get("https://backendfoo.herokuapp.com/deletecookie")
+      .get("http://44.195.186.205:5000/deletecookie")
       .then((res) => {
         console.log("Successfully loggedout");
       })
@@ -180,7 +180,7 @@ export const User = ({ client }) => {
       withCredentials: true,
     });
     transport
-      .post("https://backendfoo.herokuapp.com/main", request)
+      .post("http://44.195.186.205:5000/main", request)
       .then((res) => {
         if (res.data !== "not authenticated") {
           setloadFlag(0);

@@ -68,7 +68,7 @@ export const DeliveryDashboard = ({ client }) => {
       withCredentials: true,
     });
     transport
-      .get("https://backendfoo.herokuapp.com/deletecookie")
+      .get("http://44.195.186.205:5000/deletecookie")
       .then((res) => {
         console.log("Successfully loggedout");
       })
@@ -134,7 +134,7 @@ export const DeliveryDashboard = ({ client }) => {
       withCredentials: true,
     });
     transport
-      .post("https://backendfoo.herokuapp.com/setstatus", request)
+      .post("http://44.195.186.205:5000/setstatus", request)
       .then((res) => {
         main(today);
       })
@@ -159,7 +159,7 @@ export const DeliveryDashboard = ({ client }) => {
       withCredentials: true,
     });
     transport
-      .post("https://backendfoo.herokuapp.com/setworkstatus", request)
+      .post("http://44.195.186.205:5000/setworkstatus", request)
       .then((res) => {
         main(today);
       })
@@ -194,7 +194,7 @@ export const DeliveryDashboard = ({ client }) => {
       withCredentials: true,
     });
     transport
-      .post("https://backendfoo.herokuapp.com/deliverymain", request)
+      .post("http://44.195.186.205:5000/deliverymain", request)
       .then((res) => {
         if (res.data !== "not authenticated") {
           setloadFlag(0);

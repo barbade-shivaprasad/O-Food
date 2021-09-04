@@ -13,7 +13,7 @@ export const Intro = () => {
       withCredentials: true
     })
      transport
-     .post("https://backendfoo.herokuapp.com/authenticate")
+     .post("http://44.195.186.205:5000/authenticate")
      .then((res)=>{
        if(res.data === "authenticated")
        setauthenticated("authenticated")

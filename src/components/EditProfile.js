@@ -36,7 +36,7 @@ export const EditProfile = ( {client} ) => {
       withCredentials: true
     })
      transport
-      .post("https://backendfoo.herokuapp.com/editprofile", request)
+      .post("http://44.195.186.205:5000/editprofile", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
@@ -79,7 +79,7 @@ export const EditProfile = ( {client} ) => {
     };
 
     axios
-      .post("https://backendfoo.herokuapp.com/signup", request)
+      .post("http://44.195.186.205:5000/signup", request)
       .then((res) => {
         available = res.data.message;
         document.getElementById("a").innerHTML = available;
